@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Signup Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+        .container {
+            margin: 100px auto;
+            max-width: 500px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+        h1 {
+            margin-top: 0;
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        input[type="submit"] {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #3e8e41;
+        }
+        .error {
+            color: red;
+            font-weight: bold;
+            margin-top: 10px;
+            text-align: center;
+        }
+        .success {
+            color: green;
+            font-weight: bold;
+            margin-top: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Signup Form</h1>
+        <form id="signup-form" method="post">
+            <label for="email">Email:</label>
+            <input type="email" name="email" id="email" required>
+            <label for="password">Password:</label>
+            <input type="password" name="password" id="password" required>
+            <input type="submit" value="Signup">
+        </form>
+        <div id="response"></div>
+    </div>
+    <script>
+    
+            const form = document.getElementById('signup-form');
+            const response = document.getElementById('response');
+                
+            form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const formData = new FormData(form);
+        fetch('/signup', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                response.innerHTML = `<div class="error">${data.error}</div>`;
+            } else {
+                response.innerHTML = `<div class="success">${data.message}</div>`;
+                }
+        })
+        .catch(error => {
+            response.innerHTML = `<div class="error">${error.message}</div>`;
+        });
+    });
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>{{ poll.question }}</h1>
+  <ul class="list-group">
+    {% for vote in poll.votes %}
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+    {{ vote.choice }}
+    <span class="badge badge-primary badge-pill">{{ vote.count }}</span>
+    </li>
+    {% endfor %}
+    
+      </ul>
+      <p>Total votes: {{ total_votes }}</p>
+    {% if current_user.id == poll.user_id %}
+    <a href="{{ url_for('download_stats', poll_id=poll.id) }}" class="btn btn-primary">Download Stats</a>
+    {% endif %}
+    {% endblock %}

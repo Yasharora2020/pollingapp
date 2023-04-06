@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Create Poll</h1>
+  <form method="POST" action="{{ url_for('create_poll') }}">
+    {{ form.hidden_tag() }}
+    <div class="form-group">
+      {{ form.question.label(class='form-label') }}
+      {{ form.question(class='form-control') }}
+      {% if form.question.errors %}
+        <div class="text-danger">
+          {% for error in form.question.errors %}
+            {{ error }}
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+    <div class="form-group">
+      {{ form.choices.label(class='form-label') }}
+      {{ form.choices(class='form-control') }}
+      {% if form.choices.errors %}
+        <div class="text-danger">
+          {% for error in form.choices.errors %}
+            {{ error }}
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+    <button type="submit" class="btn btn-primary">{{ form.submit.label }}</button>
+  </form>
+{% endblock %}

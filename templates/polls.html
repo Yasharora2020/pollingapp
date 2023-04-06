@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>All Polls</h1>
+  <ul class="list-group">
+    {% for poll in polls %}
+  <li class="list-group-item">
+    <a href="{{ url_for('vote_poll', poll_id=poll.id) }}">{{ poll.question }}</a>
+    {% if current_user.id == poll.user_id %}
+      <form action="{{ url_for('delete_poll', poll_id=poll.id) }}" method="post" style="display: inline;">
+        <input type="hidden" name="_method" value="delete">
+        <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+      </form>
+        <button class="btn btn-sm btn-info share-button" data-poll-url="{{ url_for('vote_poll', poll_id=poll.id, _external=True) }}">Share</button>
+
+      
+    {% endif %}
+  </li>
+{% endfor %}
+
+  </ul>
+  {% endblock %}
+
+  {% block scripts %}
+<script>
+  document.querySelectorAll('.share-button').forEach(function(button) {
+    button.addEventListener('click', function(event) {
+      const pollUrl = event.target.dataset.pollUrl;
+      navigator.share({
+        title: 'Share Poll',
+        text: 'Check out this poll:',
+        url: pollUrl
+      }).then(() => {
+        console.log('Poll shared successfully');
+      }).catch((error) => {
+        console.error('Error sharing poll:', error);
+      });
+    });
+  });
+</script>
+{% endblock %}
+
+
+ 

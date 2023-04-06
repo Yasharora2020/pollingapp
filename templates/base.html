@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Polling App</title>
+    <!-- Add your CSS files or stylesheets here -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Polling App</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <body style="background-color: #f2f2f2;">
+
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <a class="navbar-brand" href="{{ url_for('home') }}">Polling App</a>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('home') }}">Home</a></li>
+                
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('list_polls') }}">Polls</a></li>
+            {% if current_user.is_authenticated %}
+            <ul class="navbar-nav ml-auto">
+                
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('create_poll') }}">Create Poll</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('list_polls') }}">My Polls</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('logout') }}">Logout</a></li>
+            </ul>
+            {% else %}
+            <ul class="navbar-nav ml-auto">
+                
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('login') }}">Login</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('signup') }}">Sign up</a></li>
+            </ul>
+            {% endif %}
+        </nav>
+                <div class="container my-5">
+                    <div class="row">
+                        <div class="col-md-8">
+                            {% with messages = get_flashed_messages(with_categories=true) %}
+                            {% if messages %}
+                            {% for category, message in messages %}
+                            <div class="alert alert-{{ category }}">{{ message }}</div>
+                            {% endfor %}
+                            {% endif %}
+                            {% endwith %}
+                            {% block content %}
+                            <!-- Content will be placed here by templates extending base.html -->
+                            {% endblock %}
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-header">
+                                    Sidebar
+                                </div>
+                                <div class="card-body">
+                                    <!-- Add your sidebar content here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% if request.path == '/' %}
+                    <section class="polling-app my-5">
+                     <h2>Welcome to Polling App</h2>
+                    <p> A polling app is a web application that allows users to create and vote on polls. Polling apps can be used for a variety of purposes, such as gathering feedback, conducting surveys, or running elections. Polling apps are often used by businesses, organizations, and communities to engage with their audiences and make data-driven decisions.</p>
+
+                    <p> The basic functionality of a polling app involves creating a poll with a question and multiple choices, and then allowing users to vote on those choices. Polling apps may also include features like real-time vote tracking, data analysis and visualization, and social media integration.</p>
+                        
+                    <p> In addition to providing a platform for creating and voting on polls, polling apps can also be used to collect and analyze data. Polling apps can generate reports that show the results of each poll, which can be used to identify trends, make decisions, and plan future actions.</p>
+                        
+                    <p>  Polling apps can be used for a variety of purposes, such as conducting customer surveys, collecting feedback on products and services, and gathering opinions on current events. Polling apps can also be used by educational institutions to conduct student elections, by government agencies to gather public input, and by non-profit organizations to engage with their supporters.</p>
+                    </div>
+                     {% endif %}
+                
+                <footer class="bg-dark text-light mt-5 p-3">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p>Copyright © 2023
+                                </p>
+                            </div>
+                            <div class="col-md-6 text-right">
+                                <a href="#">Privacy Policy</a>
+                                <span class="mx-2">|</span>
+                                <a href="#">Terms of Service</a>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+                
+                
+                <!-- Add your JavaScript files or scripts here -->
+                <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+                <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+                <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+                
+                </body>
+                </html>
+                
