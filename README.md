@@ -44,6 +44,8 @@ Poll results are displayed in real-time and can be viewed by anyone, regardless 
 - [ ] Add more features
 - [ ] Add more documentation
 - [ ] Add ability to enter a end date for polls
+- [ ] Use Terraform to create RDS and Cognito
+
 
 
 
